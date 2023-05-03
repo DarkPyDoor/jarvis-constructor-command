@@ -8,6 +8,10 @@
 
 Создайте папку ```ahk``` в ```commands```.
 
+**Продалжаешь тупить?**
+
+**Напиши мне: @annorbsr**
+
 # Realese Programm
 **Beta 0.0.1v**
 **Link:** https://github.com/DarkPyDoor/jarvis-constructor-command/files/11380900/constructor.zip
