@@ -45,6 +45,7 @@
 
 # Realese Programm
 **Beta 0.0.2v FastFixed(Обязательно обновитесь)**
+
 **Link:** https://drive.google.com/file/d/1nDJD1J31RW1wXuGFZqoRHqdTKgmO2uqm/view?usp=sharing
 
 **Beta 0.0.2v**
