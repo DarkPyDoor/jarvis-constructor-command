@@ -1,6 +1,8 @@
 # jarvis-constructor-command
 **Конструктор команд для Jarvis**
 
+# Вышло обновление 0.0.2
+
 # В обновлённой версии потребуется установить python (Желательно 3.10 но в общем не важно так как будут использоваться только встроенные библиотеки. 
 
 # Информация по работе
@@ -25,6 +27,10 @@
 **Напиши мне: @annorbsr**
 
 # Realese Programm
+**Beta 0.0.2v**
+**Link:** [constructor2v.zip](https://github.com/DarkPyDoor/jarvis-constructor-command/files/11396284/constructor2v.zip)
+
+
 **Beta 0.0.1v**
 **Link:** https://github.com/DarkPyDoor/jarvis-constructor-command/files/11380900/constructor.zip
 
