@@ -4,6 +4,9 @@
 
 **ОТКРЫВАТЬ ОТ ИМЕНИ АДМИНИСТАРТОРА!**
 
+# Вышел FastFix для версии 0.0.2.
+**Он не сохранял фразы правильным образом**
+
 # Вышло обновление 0.0.2
 **Что нового?**
 - Изменён интерфейс он стал более крусивым :3
@@ -41,6 +44,9 @@
 **Напиши мне: @annorbsr**
 
 # Realese Programm
+**Beta 0.0.2v FastFixed(Обязательно обновитесь)
+**Link:** https://drive.google.com/file/d/1nDJD1J31RW1wXuGFZqoRHqdTKgmO2uqm/view?usp=sharing
+
 **Beta 0.0.2v**
 **Link:** [constructor2v.zip](https://github.com/DarkPyDoor/jarvis-constructor-command/files/11396284/constructor2v.zip)
 
