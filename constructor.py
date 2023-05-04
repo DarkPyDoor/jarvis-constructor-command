@@ -1,22 +1,30 @@
-import tkinter as tk
+import customtkinter
 
-def extract_data():
-    name_file = name_file_entry.get()
-    directory = directory_entry.get()
-    phrase1 = phrase1_entry.get()
-    phrase2 = phrase2_entry.get()
-    phrase3 = phrase3_entry.get()
-    phrase4 = phrase4_entry.get()
+phrases_list = []
 
-    path = "C:/Program Files/jarvis-app/commands/constructor-commands"
+customtkinter.set_default_color_theme("dark-blue")
 
-    # create commands.yaml
-    with open(f"{path}/command.yaml", "a+", encoding='utf-8') as file:
-        file.write(f"""
-\n
+def add_directory():
+    global code_success
+    code_success += f"os.startfile('{directory_entry.get()}')\n"
+
+def add_site():
+    global code_success
+    code_success += f"os.system('{site_entry.get()}')\n"
+
+def add_timer():
+    global code_success
+    code_success += f"time.sleep('{timergt_entry.get()}')\n"
+
+def delete_command(command):
+    global code_success
+    code_success = code_success.replace(command, "")
+
+def extract():
+    command_text = f"""
 - command:
     action: ahk
-    exe_path: ahk/{name_file}.bat
+    exe_path: ahk/{name_file_entry.get()}.py
     exe_args:
   voice:
     sounds:
@@ -24,74 +32,77 @@ def extract_data():
     - ok2
     - ok3
   phrases:
-  - {phrase1}
-  - {phrase2}
-  - {phrase3}
-  - {phrase4}
+  - {phrase_entry.get()}
+    """
+    with open("C:\\Program Files\\jarvis-app\\commands\\constructor-commands\\command.yaml", "a") as file:
+        file.write(command_text)
+    with open(f"C:\\Program Files\\jarvis-app\\commands\\constructor-commands\\ahk\\{name_file_entry.get()}.py", "w") as py_file:
+        py_file.write(code_success)
+    messagebox.showinfo("Succes", "Команда успешно создана")
 
-""")
+root = customtkinter.CTk()
 
-    # create ahk folder
-    import os
-    try:
-        os.mkdir(f"{path}/ahk")
-    except:
-        pass
+name_file_label = customtkinter.CTkLabel(root, text="Имя команды (должно быть уникальным, на английском):")
+name_file_entry = customtkinter.CTkEntry(root)
+name_file_entry.insert(0, "Пример: run_firefox")
 
-    # create ahk file
-    with open(f"{path}/ahk/{name_file}.bat", "w") as file:
-        file.write(f"start {directory}")
+directory_label = customtkinter.CTkLabel(root, text="Директория дла запуска приложения")
+directory_frame = customtkinter.CTkFrame(root)
+directory_entry = customtkinter.CTkEntry(directory_frame)
+directory_entry.insert(0, "Пример: C:\Program Files\Mozilla Firefox\firefox.exe")
+directory_add_button = customtkinter.CTkButton(directory_frame, text="Add", width=5, command=add_directory)
+directory_delete_button = customtkinter.CTkButton(directory_frame, text="X", width=3, command=lambda: delete_command(f"os.startfile({directory_entry.get()})\n"))
 
-    # show success message
-    tk.messagebox.showinfo("Success", "Restart to Jarvis.")
+site_label = customtkinter.CTkLabel(root, text="Ссылку дла запуска сайта")
+site_frame = customtkinter.CTkFrame(root)
+site_entry = customtkinter.CTkEntry(site_frame)
+site_entry.insert(0, "Пример: https://yandex.kz/")
+site_add_button = customtkinter.CTkButton(site_frame, text="Add", width=5, command=add_site)
+site_delete_button = customtkinter.CTkButton(site_frame, text="X", width=3, command=lambda: delete_command(f"os.system({site_entry.get()})\n"))
 
-# create main window
-root = tk.Tk()
-root.title("Constructor Jarvis")
+phrase_label = customtkinter.CTkLabel(root, text="Какое слово/фразу нужно сказать для запуска:")
+phrase_entry = customtkinter.CTkEntry(root)
+phrase_entry.insert(0, "Пример: Запуски браузер файерфокс")
+phrase_add_button = customtkinter.CTkButton(root, text="Add", width=5, command=lambda: phrases_list.insert(len(phrases_list), phrase_entry.get()))
+phrase_delete_button = customtkinter.CTkButton(root, text="X", width=3, command=lambda: phrases_list.remove(phrase_entry.get()))
 
-# create label and text entry
-name_file_label = tk.Label(root, text="Имя команды (должно быть уникальным, на английском):")
-name_file_entry = tk.Entry(root)
+timergt_label = customtkinter.CTkLabel(root, text="Timer - Время которое команда будет бездействовать.(в секундах)")
+timergt_frame = customtkinter.CTkFrame(root)
+timergt_entry = customtkinter.CTkEntry(timergt_frame)
+timergt_entry.insert(0, "Пример: 5")
+timergt_add_button = customtkinter.CTkButton(timergt_frame, text="Add", width=5, command=add_timer)
+timergt_delete_button = customtkinter.CTkButton(timergt_frame, text="X", width=3, command=lambda: delete_command(f"time.sleep({timergt_entry.get()})\n"))
 
-directory_label = tk.Label(root, text="Директория/ссылка дла запуска приложения/сайта:")
-directory_entry = tk.Entry(root)
-directory2_label = tk.Label(root, text="Пример: C:\Program Files\Mozilla Firefox\firefox.exe")
+extract_button = customtkinter.CTkButton(root, text="Extract", command=extract)
 
-phrase1_label = tk.Label(root, text="Какое слово/фразу нужно сказать для запуска:")
-phrase1_entry = tk.Entry(root)
+name_file_label.pack()
+name_file_entry.pack()
 
-phrase2_label = tk.Label(root, text="Какое слово/фразу нужно сказать для запуска:")
-phrase2_entry = tk.Entry(root)
+directory_label.pack()
+directory_frame.pack()
+directory_entry.pack()
+directory_add_button.pack()
+directory_delete_button.pack()
 
-phrase3_label = tk.Label(root, text="Какое слово/фразу нужно сказать для запуска:")
-phrase3_entry = tk.Entry(root)
+site_label.pack()
+site_frame.pack()
+site_entry.pack()
+site_add_button.pack()
+site_delete_button.pack()
 
-phrase4_label = tk.Label(root, text="Какое слово/фразу нужно сказать для запуска:")
-phrase4_entry = tk.Entry(root)
+phrase_label.pack()
+phrase_entry.pack()
+phrase_add_button.pack()
+phrase_delete_button.pack()
 
-# create extract button
-extract_button = tk.Button(root, text="Extract", command=extract_data)
+timergt_label.pack()
+timergt_frame.pack()
+timergt_entry.pack()
+timergt_add_button.pack()
+timergt_delete_button.pack()
 
-# add to window
-name_file_label.grid(row=0, column=0)
-name_file_entry.grid(row=0, column=1)
+extract_button.pack()
 
-directory_label.grid(row=1, column=0)
-directory_entry.grid(row=1, column=1)
+code_success = "import os\nimport time\n\n"
 
-phrase1_label.grid(row=2, column=0)
-phrase1_entry.grid(row=2, column=1)
-
-phrase2_label.grid(row=3, column=0)
-phrase2_entry.grid(row=3, column=1)
-
-phrase3_label.grid(row=4, column=0)
-phrase3_entry.grid(row=4, column=1)
-
-phrase4_label.grid(row=5, column=0)
-phrase4_entry.grid(row=5, column=1)
-
-extract_button.grid(row=6, column=1)
-
-# run main loop
 root.mainloop()
